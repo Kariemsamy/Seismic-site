@@ -1,136 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Seismic | Community Quiz</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #0b0f1a;
-      color: #ffffff;
-      margin: 0;
-      padding: 0;
-    }
-    .container {
-      max-width: 800px;
-      margin: auto;
-      padding: 20px;
-    }
-    h1, h2 {
-      color: #4fd1c5;
-    }
-    .card {
-      background: #11162a;
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-    }
-    button {
-      background: #4fd1c5;
-      color: #000;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-    button:hover {
-      opacity: 0.85;
-    }
-    .result {
-      font-weight: bold;
-      margin-top: 15px;
-    }
-    .small {
-      font-size: 14px;
-      opacity: 0.8;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seismic | Community Hub 🛡️</title>
+    <style>
+        :root { --primary: #00d2ff; --bg: #05070a; --card: #10141d; }
+        body { background-color: var(--bg); color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; line-height: 1.6; }
+        .hero { padding: 80px 20px; text-align: center; background: radial-gradient(circle at center, #003366 0%, var(--bg) 70%); }
+        h1 { font-size: 3rem; color: var(--primary); text-shadow: 0 0 15px var(--primary); margin-bottom: 10px; }
+        .container { max-width: 900px; margin: auto; padding: 20px; }
+        .card { background: var(--card); border: 1px solid #222; padding: 25px; border-radius: 15px; margin-bottom: 30px; transition: 0.3s; }
+        .card:hover { border-color: var(--primary); box-shadow: 0 0 20px rgba(0, 210, 255, 0.2); }
+        .btn { background: transparent; border: 2px solid var(--primary); color: var(--primary); padding: 12px 25px; cursor: pointer; border-radius: 8px; font-weight: bold; transition: 0.3s; margin: 5px; }
+        .btn:hover { background: var(--primary); color: black; box-shadow: 0 0 15px var(--primary); }
+        .role-img { width: 100%; max-width: 500px; border-radius: 10px; border: 1px solid var(--primary); margin-top: 15px; }
+        #result { font-weight: bold; margin-top: 15px; font-size: 1.2rem; }
+    </style>
 </head>
-
 <body>
-  <div class="container">
 
-    <h1>Seismic Community Hub</h1>
-    <p class="small">
-      A simple community-built page to understand Seismic’s core ideas and test your knowledge.
-    </p>
-
-    <div class="card">
-      <h2>What is Seismic?</h2>
-      <p>
-        Seismic is a privacy-enabled, EVM-compatible blockchain designed for financial applications.
-        It allows developers to build encrypted smart contracts while keeping sensitive data private by default.
-      </p>
+    <div class="hero">
+        <h1>SEISMIC GUARDIAN HUB</h1>
+        <p>Empowering Privacy. Building the Future of Ethereum L2.</p>
     </div>
 
-    <div class="card">
-      <h2>Why Seismic Matters</h2>
-      <ul>
-        <li>🔒 Privacy enabled by default</li>
-        <li>⚙️ EVM compatible (Solidity friendly)</li>
-        <li>🏦 Built specifically for fintech use cases</li>
-      </ul>
+    <div class="container">
+        <div class="card">
+            <h2>🛡️ My Journey & Roles</h2>
+            <p>I've been deeply involved in the Seismic ecosystem, earning multiple roles through active contribution.</p>
+            <p style="color: #888;">[قم برفع صورة رولاتك وسمها roles.png لتظهر هنا]</p>
+            <img src="roles.png" alt="My Discord Roles" class="role-img" onerror="this.style.display='none'">
+        </div>
+
+        <div class="card">
+            <h2>🧠 Seismic Knowledge Test</h2>
+            <p>Can you prove you are a real Seismic contributor?</p>
+            <div id="quiz-content">
+                <p>Question: What does Seismic use to ensure privacy?</p>
+                <button class="btn" onclick="answer(true)">ZK-Shield & Encryption</button>
+                <button class="btn" onclick="answer(false)">Public Ledgers Only</button>
+            </div>
+            <p id="result"></p>
+        </div>
+
+        <div class="card" style="text-align: center;">
+            <h3>Direct Message to Admins ✉️</h3>
+            <p>I built this tool to help onboard new members. Let's grow Seismic together!</p>
+            <button class="btn" onclick="window.location.href='https://x.com/SeismicSys'">Follow Official X</button>
+        </div>
     </div>
 
-    <div class="card">
-      <h2>Quick Knowledge Quiz</h2>
-
-      <p>1) What type of blockchain is Seismic?</p>
-      <button onclick="answer(true)">Privacy-enabled blockchain</button><br>
-      <button onclick="answer(false)">Fully transparent blockchain</button>
-
-      <p style="margin-top:15px;">2) Is Seismic EVM compatible?</p>
-      <button onclick="answer(true)">Yes</button><br>
-      <button onclick="answer(false)">No</button>
-
-      <p style="margin-top:15px;">3) What is Seismic mainly built for?</p>
-      <button onclick="answer(true)">Fintech applications</button><br>
-      <button onclick="answer(false)">Gaming only</button>
-
-      <div class="result" id="result"></div>
-    </div>
-
-    <div class="card">
-      <h2>For Admins</h2>
-      <p>
-        This page is an example of how community members can contribute by:
-      </p>
-      <ul>
-        <li>Creating educational content</li>
-        <li>Helping newcomers understand privacy tech</li>
-        <li>Building simple tools to boost engagement</li>
-      </ul>
-    </div>
-
-    <p class="small">
-      Community-made • Inspired by Seismic Systems
-    </p>
-
-  </div>
-
-  <script>
-    let score = 0;
-    let answered = 0;
-
-    function answer(correct) {
-      answered++;
-      if (correct) score++;
-
-      if (answered === 3) {
-        let msg = "";
-        if (score === 3) {
-          msg = "🔥 Score: 3/3 — You clearly understand Seismic’s core concepts.";
-        } else if (score === 2) {
-          msg = "✅ Score: 2/3 — Solid understanding. Almost there.";
-        } else {
-          msg = "📘 Score: " + score + "/3 — Time to explore Seismic a bit more.";
+    <script>
+        function answer(isCorrect) {
+            const res = document.getElementById('result');
+            if(isCorrect) {
+                res.innerHTML = "✅ Phenomenal! You understand the Shield technology.";
+                res.style.color = "var(--primary)";
+            } else {
+                res.innerHTML = "❌ Not quite. Seismic is all about privacy!";
+                res.style.color = "#ff4444";
+            }
         }
-        document.getElementById("result").innerText = msg;
-      }
-    }
-  </script>
-
+    </script>
 </body>
 </html>
+

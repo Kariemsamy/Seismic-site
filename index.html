@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Seismic | Community Quiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0b0f1a;
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+    }
+    h1, h2 {
+      color: #4fd1c5;
+    }
+    .card {
+      background: #11162a;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    button {
+      background: #4fd1c5;
+      color: #000;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button:hover {
+      opacity: 0.85;
+    }
+    .result {
+      font-weight: bold;
+      margin-top: 15px;
+    }
+    .small {
+      font-size: 14px;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <h1>Seismic Community Hub</h1>
+    <p class="small">
+      A simple community-built page to understand Seismic’s core ideas and test your knowledge.
+    </p>
+
+    <div class="card">
+      <h2>What is Seismic?</h2>
+      <p>
+        Seismic is a privacy-enabled, EVM-compatible blockchain designed for financial applications.
+        It allows developers to build encrypted smart contracts while keeping sensitive data private by default.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Why Seismic Matters</h2>
+      <ul>
+        <li>🔒 Privacy enabled by default</li>
+        <li>⚙️ EVM compatible (Solidity friendly)</li>
+        <li>🏦 Built specifically for fintech use cases</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Quick Knowledge Quiz</h2>
+
+      <p>1) What type of blockchain is Seismic?</p>
+      <button onclick="answer(true)">Privacy-enabled blockchain</button><br>
+      <button onclick="answer(false)">Fully transparent blockchain</button>
+
+      <p style="margin-top:15px;">2) Is Seismic EVM compatible?</p>
+      <button onclick="answer(true)">Yes</button><br>
+      <button onclick="answer(false)">No</button>
+
+      <p style="margin-top:15px;">3) What is Seismic mainly built for?</p>
+      <button onclick="answer(true)">Fintech applications</button><br>
+      <button onclick="answer(false)">Gaming only</button>
+
+      <div class="result" id="result"></div>
+    </div>
+
+    <div class="card">
+      <h2>For Admins</h2>
+      <p>
+        This page is an example of how community members can contribute by:
+      </p>
+      <ul>
+        <li>Creating educational content</li>
+        <li>Helping newcomers understand privacy tech</li>
+        <li>Building simple tools to boost engagement</li>
+      </ul>
+    </div>
+
+    <p class="small">
+      Community-made • Inspired by Seismic Systems
+    </p>
+
+  </div>
+
+  <script>
+    let score = 0;
+    let answered = 0;
+
+    function answer(correct) {
+      answered++;
+      if (correct) score++;
+
+      if (answered === 3) {
+        let msg = "";
+        if (score === 3) {
+          msg = "🔥 Score: 3/3 — You clearly understand Seismic’s core concepts.";
+        } else if (score === 2) {
+          msg = "✅ Score: 2/3 — Solid understanding. Almost there.";
+        } else {
+          msg = "📘 Score: " + score + "/3 — Time to explore Seismic a bit more.";
+        }
+        document.getElementById("result").innerText = msg;
+      }
+    }
+  </script>
+
+</body>
+</html>

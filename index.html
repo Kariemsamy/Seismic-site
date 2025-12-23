@@ -10,8 +10,8 @@
             --text: #1a1a1a;
             --card: #f8f9fa;
             --accent: #8a2be2;
-            --blue: #00d2ff;
             --border: #dddddd;
+            --sidebar: #ffffff;
         }
 
         [data-theme="dark"] {
@@ -19,6 +19,7 @@
             --text: #ffffff;
             --card: #161b22;
             --border: #30363d;
+            --sidebar: #161b22;
         }
 
         body { 
@@ -27,12 +28,59 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             margin: 0; 
             transition: 0.3s;
-            text-align: center;
         }
 
-        .header { padding: 60px 20px; border-bottom: 1px solid var(--border); }
+        /* القائمة الجانبية (Sidebar) */
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            left: 0;
+            background-color: var(--sidebar);
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            border-right: 1px solid var(--border);
+        }
+
+        .sidebar a {
+            padding: 15px 25px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            color: var(--text);
+            display: block;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .sidebar a:hover { color: var(--accent); }
+
+        .sidebar .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        /* زر الثلاث شرط */
+        .menu-btn {
+            font-size: 30px;
+            cursor: pointer;
+            position: fixed;
+            top: 15px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--card);
+            padding: 5px 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .header { padding: 80px 20px 40px; border-bottom: 1px solid var(--border); text-align: center; }
         
-        /* زرار التبديل بين الـ Dark والـ Light */
         .theme-switch {
             position: fixed; top: 20px; right: 20px;
             padding: 10px 15px; border-radius: 20px; border: 1px solid var(--border);
@@ -43,7 +91,7 @@
 
         .card { 
             background: var(--card); border: 1px solid var(--border); 
-            padding: 25px; border-radius: 15px; margin-bottom: 30px; text-align: left;
+            padding: 25px; border-radius: 15px; margin-bottom: 30px; 
         }
 
         .btn-option { 
@@ -54,57 +102,123 @@
 
         .btn-option:hover { border-color: var(--accent); background: var(--card); }
 
-        .footer { padding: 40px; border-top: 1px solid var(--border); margin-top: 50px; }
+        .footer { padding: 40px; border-top: 1px solid var(--border); margin-top: 50px; text-align: center;}
         
         .donate-box { 
             background: var(--accent); color: white; padding: 20px; 
             border-radius: 12px; display: inline-block; margin-top: 20px;
         }
 
-        .address { font-family: monospace; word-break: break-all; font-weight: bold; }
+        .social-footer a {
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 1.5rem;
+            color: var(--text);
+        }
 
-        #certificate { display: none; text-align: center; border: 5px solid var(--accent); padding: 30px; }
+        .gallery-grid img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border);
+        }
+
+        #main-content section { display: none; }
+        #main-content section.active { display: block; }
     </style>
 </head>
 <body>
 
-    <button class="theme-switch" onclick="toggleTheme()">🌓 Change Mode</button>
+    <div id="mySidebar" class="sidebar">
+        <a class="closebtn" onclick="closeNav()">&times;</a>
+        <a onclick="showSection('quiz')">🏠 Home / Quiz</a>
+        <a onclick="showSection('admins')">🛡️ Admins</a>
+        <a onclick="showSection('contributors')">⭐ Best Contributors</a>
+        <a onclick="showSection('gallery')">🖼️ My Gallery</a>
+    </div>
+
+    <span class="menu-btn" onclick="openNav()">&#9776;</span>
+    <button class="theme-switch" onclick="toggleTheme()">🌓 Mode</button>
 
     <div class="header">
-        <h1 id="main-title">Seismic Community</h1>
+        <h1>Seismic Community</h1>
         <p>Your portal to Verified Confidentiality</p>
         <div style="margin-top: 20px;">
             <a href="https://www.seismic.systems/" target="_blank">Official Website</a> | 
+            <a href="https://discord.gg/seismic" target="_blank">Official Discord</a> | 
             <a href="https://x.com/SeismicSys" target="_blank">Official X</a>
         </div>
     </div>
 
-    <div class="container">
-        <div class="card" id="quiz-box">
-            <h2 style="color: var(--accent);">Seismic Tech Quiz</h2>
-            <p id="q-text">Loading first question...</p>
-            <div id="q-options"></div>
-            <p style="font-size: 0.8rem; color: var(--accent);">Question <span id="q-idx">1</span> of 10</p>
-        </div>
+    <div class="container" id="main-content">
+        
+        <section id="quiz" class="active">
+            <div class="card" id="quiz-box">
+                <h2 style="color: var(--accent);">Seismic Tech Quiz</h2>
+                <p id="q-text">Loading...</p>
+                <div id="q-options"></div>
+                <p style="font-size: 0.8rem; color: var(--accent);">Question <span id="q-idx">1</span> of 10</p>
+            </div>
+            <div id="certificate" class="card" style="display:none; text-align: center;">
+                <h1>CERTIFIED GUARDIAN</h1>
+                <h2 id="user-name-display" style="color: var(--accent);"></h2>
+                <button onclick="location.reload()" class="btn-option" style="text-align: center;">Retake Quiz</button>
+            </div>
+        </section>
 
-        <div id="certificate" class="card">
-            <h1>CERTIFIED GUARDIAN</h1>
-            <h2 id="user-name-display" style="color: var(--accent);"></h2>
-            <p>You have passed the Seismic technical mastery challenge!</p>
-            <button onclick="location.reload()" class="btn-option" style="text-align: center;">Retake Quiz</button>
-        </div>
+        <section id="admins">
+            <div class="card">
+                <h2>Project Admins</h2>
+                <p>1. <b>Sami</b> - <a href="https://x.com/Sami_Seismic" target="_blank">Twitter</a></p>
+                <p>2. <b>Abishek</b> - <a href="https://x.com/abishek_v_" target="_blank">Twitter</a></p>
+                <p>3. <b>Admin Name</b> - <a href="#" target="_blank">Twitter</a></p>
+                <p>4. <b>Admin Name</b> - <a href="#" target="_blank">Twitter</a></p>
+            </div>
+        </section>
+
+        <section id="contributors">
+            <div class="card">
+                <h2>Best Contributors ⭐</h2>
+                <ul>
+                    <li><a href="https://x.com/user1" target="_blank">Incredible Thread by User1</a></li>
+                    <li><a href="https://x.com/user2" target="_blank">Seismic Analysis by User2</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="gallery">
+            <div class="card">
+                <h2>My Gallery 🖼️</h2>
+                <div class="gallery-grid">
+                    <img src="work1.jpg" onerror="this.src='https://via.placeholder.com/400x300?text=My+Work+1'">
+                    <img src="work2.jpg" onerror="this.src='https://via.placeholder.com/400x300?text=My+Work+2'">
+                </div>
+            </div>
+        </section>
 
         <div class="footer">
+            <div class="social-footer">
+                <a href="https://x.com/kariemsamy" target="_blank">🐦 Twitter</a>
+                <a href="https://discordapp.com/users/YOUR_ID" target="_blank">👾 Discord</a>
+            </div>
             <p>Made with 🤎 For community</p>
             <div class="donate-box">
-                If you want to donate, send to this address:<br><br>
+                Donate to support:<br>
                 <span class="address">0xf57182db9177e02601db15a42ffad7ec83641575</span>
             </div>
         </div>
     </div>
 
     <script>
-        // نظام تبديل الثيم
+        function openNav() { document.getElementById("mySidebar").style.width = "250px"; }
+        function closeNav() { document.getElementById("mySidebar").style.width = "0"; }
+
+        function showSection(id) {
+            document.querySelectorAll('#main-content section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            closeNav();
+        }
+
         function toggleTheme() {
             const current = document.documentElement.getAttribute('data-theme');
             const target = current === 'dark' ? 'light' : 'dark';
@@ -139,7 +253,7 @@
                     optBox.appendChild(btn);
                 });
             } else {
-                const name = prompt("Enter your name for the certificate:");
+                const name = prompt("Enter your name:");
                 document.getElementById('quiz-box').style.display = 'none';
                 document.getElementById('user-name-display').innerText = name || "Guardian";
                 document.getElementById('certificate').style.display = 'block';
@@ -149,3 +263,88 @@
     </script>
 </body>
 </html>
+<script>
+    let cur = 0;
+    let score = 0;
+
+    function openNav() { document.getElementById("mySidebar").style.width = "250px"; }
+    function closeNav() { document.getElementById("mySidebar").style.width = "0"; }
+
+    function showSection(id) {
+        document.querySelectorAll('#main-content section').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        closeNav();
+    }
+
+    function toggleTheme() {
+        const current = document.documentElement.getAttribute('data-theme');
+        const target = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', target);
+        localStorage.setItem('theme', target); // Save user preference
+    }
+
+    const questions = [
+        { q: "What is Seismic's primary tech for privacy?", a: ["SHIELD", "The Wall", "Iron Gate"], c: 0 },
+        { q: "Is Seismic an L2 on Ethereum?", a: ["Yes", "No", "It is L3"], c: 0 },
+        { q: "Seismic is compatible with which VM?", a: ["EVM", "Solana VM", "Move"], c: 0 },
+        { q: "Data on Seismic is ____ by default.", a: ["Public", "Private/Encrypted", "Deleted"], c: 1 },
+        { q: "Which tech is used for verification?", a: ["ZK-Proofs", "Manual Check", "No verification"], c: 0 },
+        { q: "What is the core focus of Seismic?", a: ["Verified Confidentiality", "Gaming Only", "Memecoins"], c: 0 },
+        { q: "Can you build Dapps on Seismic?", a: ["Yes", "No"], c: 0 },
+        { q: "Is Seismic open for the community?", a: ["Yes", "No"], c: 0 },
+        { q: "Does Seismic support Solidity?", a: ["Yes", "No"], c: 0 },
+        { q: "Who are the Guardians?", a: ["The Community", "Only Bots", "The Admins"], c: 0 }
+    ];
+
+    function loadQ() {
+        const quizBox = document.getElementById('quiz-box');
+        const optBox = document.getElementById('q-options');
+        
+        if (cur < questions.length) {
+            document.getElementById('q-text').innerText = questions[cur].q;
+            document.getElementById('q-idx').innerText = cur + 1;
+            optBox.innerHTML = '';
+
+            questions[cur].a.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'btn-option';
+                btn.innerText = opt;
+                btn.onclick = () => handleAnswer(i, btn);
+                optBox.appendChild(btn);
+            });
+        } else {
+            finishQuiz();
+        }
+    }
+
+    function handleAnswer(choice, btn) {
+        const correct = questions[cur].c;
+        if (choice === correct) {
+            score++;
+            btn.style.borderColor = "#2ecc71";
+            btn.style.background = "rgba(46, 204, 113, 0.1)";
+        } else {
+            btn.style.borderColor = "#e74c3c";
+            btn.style.background = "rgba(231, 76, 60, 0.1)";
+        }
+
+        // Delay next question so user sees the feedback
+        setTimeout(() => {
+            cur++;
+            loadQ();
+        }, 600);
+    }
+
+    function finishQuiz() {
+        const name = prompt(`You scored ${score}/10! Enter your name for your certificate:`);
+        document.getElementById('quiz-box').style.display = 'none';
+        document.getElementById('user-name-display').innerText = name || "Guardian";
+        document.getElementById('certificate').style.display = 'block';
+    }
+
+    // Initialize
+    window.onload = () => {
+        if(localStorage.getItem('theme') === 'dark') toggleTheme();
+        loadQ();
+    };
+</script>

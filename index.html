@@ -3,66 +3,290 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seismic | Community Hub 🛡️</title>
+    <title>Seismic Community | Guardian Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #00d2ff; --bg: #05070a; --card: #10141d; }
-        body { background-color: var(--bg); color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; line-height: 1.6; }
-        .hero { padding: 80px 20px; text-align: center; background: radial-gradient(circle at center, #003366 0%, var(--bg) 70%); }
-        h1 { font-size: 3rem; color: var(--primary); text-shadow: 0 0 15px var(--primary); margin-bottom: 10px; }
-        .container { max-width: 900px; margin: auto; padding: 20px; }
-        .card { background: var(--card); border: 1px solid #222; padding: 25px; border-radius: 15px; margin-bottom: 30px; transition: 0.3s; }
-        .card:hover { border-color: var(--primary); box-shadow: 0 0 20px rgba(0, 210, 255, 0.2); }
-        .btn { background: transparent; border: 2px solid var(--primary); color: var(--primary); padding: 12px 25px; cursor: pointer; border-radius: 8px; font-weight: bold; transition: 0.3s; margin: 5px; }
-        .btn:hover { background: var(--primary); color: black; box-shadow: 0 0 15px var(--primary); }
-        .role-img { width: 100%; max-width: 500px; border-radius: 10px; border: 1px solid var(--primary); margin-top: 15px; }
-        #result { font-weight: bold; margin-top: 15px; font-size: 1.2rem; }
+        :root {
+            --bg-dark: #020408;
+            --accent-purple: #8a2be2;
+            --accent-blue: #00d2ff;
+            --card-bg: #0d1117;
+            --text-main: #ffffff;
+            --text-dim: #8b949e;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section - تصميم مشابه للموقع الرسمي */
+        .hero {
+            padding: 100px 20px;
+            background: radial-gradient(circle at top, #1a0b2e 0%, var(--bg-dark) 70%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 900;
+            letter-spacing: -2px;
+            margin: 0;
+            background: linear-gradient(to right, #fff, #a3a3a3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h2 {
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .social-links {
+            margin-top: 30px;
+        }
+
+        .social-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            margin: 10px;
+            display: inline-flex;
+            align-items: center;
+            transition: 0.3s;
+        }
+
+        .social-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-blue);
+            transform: translateY(-3px);
+        }
+
+        /* Tabs System */
+        .tabs-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            background: rgba(2, 4, 8, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-trigger {
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .tab-trigger.active {
+            color: white;
+            background: rgba(138, 43, 226, 0.2);
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
+        }
+
+        .content-section {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            display: none;
+        }
+
+        .content-section.active { display: block; animation: fadeInUp 0.6s ease forwards; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 24px;
+            text-align: left;
+        }
+
+        /* Quiz Styling */
+        .quiz-option {
+            background: #161b22;
+            border: 1px solid #30363d;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--accent-purple);
+            background: #1c2128;
+        }
+
+        /* Certificate */
+        #certificate {
+            background: linear-gradient(145deg, #0d1117, #1a0b2e);
+            border: 2px solid var(--accent-purple);
+            padding: 60px;
+            border-radius: 30px;
+            text-align: center;
+            display: none;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-grid img {
+            width: 100%;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .footer-link-btn {
+            background: #161b22;
+            color: var(--text-main);
+            padding: 10px 15px;
+            border-radius: 10px;
+            text-decoration: none;
+            border: 1px solid #30363d;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
 
-    <div class="hero">
-        <h1>SEISMIC GUARDIAN HUB</h1>
-        <p>Empowering Privacy. Building the Future of Ethereum L2.</p>
+    <section class="hero">
+        <h2>Introducing Seismic</h2>
+        <h1>SEISMIC COMMUNITY</h1>
+        <p style="color: var(--text-dim); font-size: 1.2rem; max-width: 600px; margin: 20px auto;">
+            A Hub for Guardians. Built by the Community for the future of Privacy.
+        </p>
+        
+        <div class="social-links">
+            <a href="https://x.com/kariemsamy" target="_blank" class="social-btn">🐦 My X Account</a>
+            <a href="https://discord.com/invite/seismic" target="_blank" class="social-btn">👾 Join Discord</a>
+        </div>
+    </section>
+
+    <nav class="tabs-nav">
+        <button class="tab-trigger active" onclick="showTab('project')">Project</button>
+        <button class="tab-trigger" onclick="showTab('gallery')">Contributions</button>
+        <button class="tab-trigger" onclick="showTab('quiz')">Mastery Quiz</button>
+    </nav>
+
+    <div id="project" class="content-section active">
+        <div class="card">
+            <h3 style="color: var(--accent-blue);">Official Resources</h3>
+            <div class="footer-links">
+                <a href="https://www.seismic.systems/" class="footer-link-btn">🌐 Website</a>
+                <a href="https://x.com/SeismicSys" class="footer-link-btn">🐦 Official X</a>
+                <a href="https://docs.seismic.systems/" class="footer-link-btn">📖 Docs</a>
+            </div>
+            <h2 style="margin-top: 40px;">The Shield Protocol</h2>
+            <p style="color: var(--text-dim); line-height: 1.8;">
+                Seismic is the first verified confidentiality layer for Ethereum. It enables developers to build applications with private state and verifiable execution.
+            </p>
+        </div>
     </div>
 
-    <div class="container">
-        <div class="card">
-            <h2>🛡️ My Journey & Roles</h2>
-            <p>I've been deeply involved in the Seismic ecosystem, earning multiple roles through active contribution.</p>
-            <p style="color: #888;">[قم برفع صورة رولاتك وسمها roles.png لتظهر هنا]</p>
-            <img src="roles.png" alt="My Discord Roles" class="role-img" onerror="this.style.display='none'">
+    <div id="gallery" class="content-section">
+        <h2 style="margin-bottom: 30px;">My Contributions</h2>
+        <div class="gallery-grid">
+            <img src="work1.jpg" onerror="this.src='https://via.placeholder.com/400x300/161b22/8a2be2?text=Role+Screenshot+1'">
+            <img src="work2.jpg" onerror="this.src='https://via.placeholder.com/400x300/161b22/8a2be2?text=Role+Screenshot+2'">
+            <img src="work3.jpg" onerror="this.src='https://via.placeholder.com/400x300/161b22/8a2be2?text=Community+Art'">
+        </div>
+    </div>
+
+    <div id="quiz" class="content-section">
+        <div class="card" id="quiz-container">
+            <h2 id="q-text">Loading Challenge...</h2>
+            <div id="q-options"></div>
+            <p style="text-align: center; color: var(--accent-purple); margin-top: 20px;">
+                Question <span id="q-idx">1</span> / 10
+            </p>
         </div>
 
-        <div class="card">
-            <h2>🧠 Seismic Knowledge Test</h2>
-            <p>Can you prove you are a real Seismic contributor?</p>
-            <div id="quiz-content">
-                <p>Question: What does Seismic use to ensure privacy?</p>
-                <button class="btn" onclick="answer(true)">ZK-Shield & Encryption</button>
-                <button class="btn" onclick="answer(false)">Public Ledgers Only</button>
-            </div>
-            <p id="result"></p>
-        </div>
-
-        <div class="card" style="text-align: center;">
-            <h3>Direct Message to Admins ✉️</h3>
-            <p>I built this tool to help onboard new members. Let's grow Seismic together!</p>
-            <button class="btn" onclick="window.location.href='https://x.com/SeismicSys'">Follow Official X</button>
+        <div id="certificate">
+            <h4 style="color: var(--accent-blue); letter-spacing: 5px;">CERTIFICATE</h4>
+            <h1 style="font-size: 3rem; margin: 20px 0;">SEISMIC GUARDIAN</h1>
+            <p>This recognizes that</p>
+            <h2 id="user-name-display" style="color: var(--accent-purple); font-size: 2.5rem;">[Name]</h2>
+            <p>Has mastered the technical foundations of Verified Confidentiality.</p>
+            <button class="social-btn" onclick="window.print()" style="background: var(--accent-purple);">Print PDF</button>
         </div>
     </div>
 
     <script>
-        function answer(isCorrect) {
-            const res = document.getElementById('result');
-            if(isCorrect) {
-                res.innerHTML = "✅ Phenomenal! You understand the Shield technology.";
-                res.style.color = "var(--primary)";
+        const questions = [
+            { q: "What is Seismic's main value proposition?", a: ["Total Transparency", "Verified Confidentiality", "Gaming Only"], c: 1 },
+            { q: "Which tech powers Seismic's private state?", a: ["SHIELD", "The Wall", "Iron Gate"], c: 0 },
+            { q: "Seismic is compatible with which environment?", a: ["Solidity/EVM", "Solana/SVM", "Move"], c: 0 },
+            { q: "Data on Seismic is ____ by default.", a: ["Public", "Encrypted", "Deleted"], c: 1 },
+            { q: "Which sector benefits most from Seismic's privacy?", a: ["Public Ads", "Institutional Fintech", "Open Chat"], c: 1 },
+            { q: "How does Seismic handle state verification?", a: ["ZK-Proofs", "Manual Check", "No Verification"], c: 0 },
+            { q: "Seismic enables 'Private Smart ____'.", a: ["Contracts", "Hardware", "Storage"], c: 0 },
+            { q: "What does SHIELD stand for in the ecosystem?", a: ["The Privacy Engine", "The Token Name", "A Discord Bot"], c: 0 },
+            { q: "Can Ethereum Dapps migrate to Seismic?", a: ["Yes, with minimal changes", "No, total rewrite needed"], c: 0 },
+            { q: "What is the role of the Seismic Community?", a: ["Only Trading", "Advocating for Privacy & Growth", "Nothing"], c: 1 }
+        ];
+
+        let cur = 0;
+        function showTab(id) {
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.tab-trigger').forEach(t => t.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        function loadQ() {
+            if (cur < questions.length) {
+                document.getElementById('q-text').innerText = questions[cur].q;
+                document.getElementById('q-idx').innerText = cur + 1;
+                const optBox = document.getElementById('q-options');
+                optBox.innerHTML = '';
+                questions[cur].a.forEach((opt, i) => {
+                    const div = document.createElement('div');
+                    div.className = 'quiz-option';
+                    div.innerText = opt;
+                    div.onclick = () => { cur++; loadQ(); };
+                    optBox.appendChild(div);
+                });
             } else {
-                res.innerHTML = "❌ Not quite. Seismic is all about privacy!";
-                res.style.color = "#ff4444";
+                const name = prompt("Enter your name for the certificate:");
+                document.getElementById('quiz-container').style.display = 'none';
+                document.getElementById('user-name-display').innerText = name || "Guardian";
+                document.getElementById('certificate').style.display = 'block';
             }
         }
+        loadQ();
     </script>
 </body>
 </html>
-
